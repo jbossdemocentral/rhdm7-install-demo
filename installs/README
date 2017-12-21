@@ -1,0 +1,7 @@
+Download the following from http://developers.redhat.com
+
+ * EAP zip (jboss-eap-7.1.0.zip)
+ * Decision Manager: Decision Central deployable (rhdm-7.0.0.ER1-decision-central-eap7.zip)
+ * Decision Manager: Decision Server (KIE Server) deployable (rhdm-7.0.0.ER1-kie-server-ee7.zip)
+
+and copy to this directory for the init.sh and init.ps1 scripts to work.
