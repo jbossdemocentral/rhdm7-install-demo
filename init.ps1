@@ -8,7 +8,7 @@ $AUTHORS="Red Hat"
 $PROJECT="git@github.com:jbossdemocentral/rhdm7-install-demo.git"
 $PRODUCT="Red Hat Decision Manager"
 $TARGET="$PROJECT_HOME\target"
-$JBOSS_HOME="$TARGET\jboss-eap-7.0"
+$JBOSS_HOME="$TARGET\jboss-eap-7.1"
 $SERVER_DIR="$JBOSS_HOME\standalone\deployments\"
 $SERVER_CONF="$JBOSS_HOME\standalone\configuration\"
 $SERVER_BIN="$JBOSS_HOME\bin"
@@ -149,14 +149,14 @@ If ($unzipProcess.ExitCode -ne 0) {
 
 Write-Host "Deploying Decision Manager Decision Server now..."
 # Using 7-Zip. This currently seems to be the only way to overcome the Windows 260 character path limit.
-$argList = "x -o$TARGET\jboss-eap-7.1\standalone\deployments -y $SRC_DIR\$DM_KIE_SERVER"
+$argList = "x -o$JBOSS_HOME\standalone\deployments -y $SRC_DIR\$DM_KIE_SERVER"
 $unzipProcess = (Start-Process -FilePath 7z.exe -ArgumentList $argList -Wait -PassThru -NoNewWindow)
 
 If ($unzipProcess.ExitCode -ne 0) {
 	Write-Error "Error occurred during Decision Manager Decision Server installation."
 	exit
 }
-New-Item -ItemType file $TARGET\jboss-eap-7.1\standalone\deployments\kie-server.war.dodeploy
+New-Item -ItemType file $JBOSS_HOME\standalone\deployments\kie-server.war.dodeploy
 Write-Host ""
 
 Write-Host "- enabling demo accounts setup ...`n"
@@ -174,7 +174,7 @@ Write-Host "- setting up standalone.xml configuration adjustments...`n"
 Copy-Item "$SUPPORT_DIR\standalone-full.xml" "$SERVER_CONF\standalone.xml" -force
 
 Write-Host "- setup email task notification user...`n"
-Copy-Item "$SUPPORT_DIR\userinfo.properties" "$SERVER_DIR\business-central.war\WEB-INF\classes\" -force
+Copy-Item "$SUPPORT_DIR\userinfo.properties" "$SERVER_DIR\decision-central.war\WEB-INF\classes\" -force
 
 Write-Host "============================================================================"
 Write-Host "=                                                                          ="
