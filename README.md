@@ -45,14 +45,10 @@ The following steps can be used to configure and run the demo in a container
 7. Enjoy installed and configured Red Hat Decision Manager7.
 
 
-Option 3 - Install with one click in xPaaS (brmsPaaS)
+Option 3 - Install on OpenShift
 -----------------------------------------------------
 Coming soon.
 
-
-Option 4 - Install on Red Hat CDK OpenShift Enterprise image
-------------------------------------------------------------
-Coming soon.
 
 Supporting Articles
 -------------------
