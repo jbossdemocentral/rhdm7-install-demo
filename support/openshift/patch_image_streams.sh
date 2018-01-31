@@ -1,3 +1,2 @@
 #!/bin/sh
-sed 's/registry.access.redhat.com/brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/g' rhdm70-image-streams.yaml > rhdm70-image-streams-internal.yaml
-
+sed 's/registry.access.redhat.com\/rhdm-7/registry.access.redhat.com\/rhdm-7-tech-preview/g' rhdm70-image-streams.yaml > rhdm70-image-streams-internal.yaml

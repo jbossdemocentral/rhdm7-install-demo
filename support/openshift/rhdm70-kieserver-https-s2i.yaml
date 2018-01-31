@@ -80,12 +80,6 @@ parameters:
   from: "[a-zA-Z]{6}[0-9]{1}!"
   generate: expression
   required: false
-- displayName: KIE Server Sync Deploy
-  description: KIE execution server sync startup with containers; hold the startup
-    until containers are loaded (Sets the org.kie.server.sync.deploy system property)
-  name: KIE_SERVER_SYNC_DEPLOY
-  value: 'false'
-  required: false
 - displayName: KIE Server User
   description: KIE execution server username (Sets the org.kie.server.user system
     property)
@@ -151,22 +145,22 @@ parameters:
 - displayName: KIE Server Container Deployment
   description: 'KIE Server Container deployment configuration in format: containerId=groupId:artifactId:version|c2=g2:a2:v2'
   name: KIE_SERVER_CONTAINER_DEPLOYMENT
-  value: decisionserver-hellorules=org.openshift.quickstarts:decisionserver-hellorules:1.4.0.Final
+  value: rhdm-kieserver-hellorules=org.openshift.quickstarts:rhdm-kieserver-hellorules:1.4.0-SNAPSHOT
   required: false
 - displayName: Git Repository URL
   description: Git source URI for application
   name: SOURCE_REPOSITORY_URL
-  value: https://github.com/jboss-openshift/openshift-quickstarts.git
+  value: https://github.com/jboss-container-images/rhdm-7-openshift-image.git
   required: true
 - displayName: Git Reference
   description: Git branch/tag reference
   name: SOURCE_REPOSITORY_REF
-  value: master
+  value: rhdm70-dev
   required: false
 - displayName: Context Directory
   description: Path within Git project to build; empty for root project directory.
   name: CONTEXT_DIR
-  value: decisionserver/hellorules
+  value: quickstarts/hello-rules/hellorules
   required: false
 - displayName: Github Webhook Secret
   description: GitHub trigger secret
@@ -408,8 +402,6 @@ objects:
                 fieldPath: status.podIP
           - name: KIE_SERVER_CONTAINER_DEPLOYMENT
             value: "${KIE_SERVER_CONTAINER_DEPLOYMENT}"
-          - name: KIE_SERVER_SYNC_DEPLOY
-            value: "${KIE_SERVER_SYNC_DEPLOY}"
           - name: KIE_SERVER_PWD
             value: "${KIE_SERVER_PWD}"
           - name: KIE_SERVER_USER

@@ -88,7 +88,7 @@ parameters:
   name: DECISION_CENTRAL_HOSTNAME_HTTP
   value: ''
   required: false
-- displayName: Busines Central Custom https Route Hostname
+- displayName: Decision Central Custom https Route Hostname
   description: 'Custom hostname for https service route.  Leave blank for default
     hostname, e.g.: secure-<application-name>-rhdmcentr-<project>.<default-domain-suffix>'
   name: DECISION_CENTRAL_HOSTNAME_HTTPS

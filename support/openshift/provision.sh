@@ -242,20 +242,16 @@ function import_imagestreams_and_templates() {
   oc create -f ./rhdm70-image-streams-internal.yaml
   #oc create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/rhdm70-dev/rhdm70-image-streams.yaml
 
-  # Need to tell OpenShift to import the image from an insecure source.
-  # Can't do this in the template as this requires system:admin rights.
-  #oc import-image rhdm70-decisioncentral-openshift:1.0 --insecure=true
-  #oc import-image rhdm70-kieserver-openshift:1.0 --insecure=true
-
-
   echo_header "Importing Templates"
   oc create -f ./rhdm70-full.yaml
   oc create -f ./rhdm70-kieserver.yaml
-  oc create -f ./rhdm70-kieserver-s2i.yaml
+  oc create -f ./rhdm70-kieserver-basic-s2i.yaml
+  oc create -f ./rhdm70-kieserver-https-s2i.yaml
 
   #oc create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/rhdm70-dev/templates/rhdm70-full.yaml
   #oc create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/rhdm70-dev/templates/rhdm70-kieserver.yaml
-  #oc create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/rhdm70-dev/templates/rhdm70-kieserver-s2i.yaml
+  #oc create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/rhdm70-dev/templates/rhdm70-kieserver-basic-s2i.yaml
+  #oc create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/rhdm70-dev/templates/rhdm70-kieserver-https-s2i.yaml
 }
 
 
@@ -290,16 +286,6 @@ function create_application() {
 			-p KIE_SERVER_PWD="$KIE_SERVER_PWD" \
 			-p MAVEN_REPO_USERNAME="$KIE_ADMIN_USER" \
 			-p MAVEN_REPO_PASSWORD="$KIE_ADMIN_PWD"
-
-  #oc new-app --template=bpmsuite70-executionserver \
-	#		-p APPLICATION_NAME="$ARG_DEMO" \
-	#		-p IMAGE_STREAM_NAMESPACE="$PRJ" \
-	#		-p KIE_SERVER_CONTROLLER_USER="$KIE_SERVER_CONTROLLER_USER" \
-	#		-p KIE_SERVER_CONTROLLER_PWD="$KIE_SERVER_CONTROLLER_PWD" \
-	#		-p KIE_ADMIN_USER="$KIE_ADMIN_USER" \
-	#		-p KIE_ADMIN_PWD="$KIE_ADMIN_PWD" \
-	#		-p KIE_SERVER_USER="$KIE_SERVER_USER" \
-	#		-p KIE_SERVER_PWD="$KIE_SERVER_PWD"
 
 }
 
@@ -408,7 +394,7 @@ case "$ARG_COMMAND" in
         echo "Setting up and deploying $DEMO_NAME ($ARG_DEMO)..."
 
         print_info
-        pre_condition_check
+        #pre_condition_check
         create_projects
         if [ "$ARG_WITH_IMAGESTREAMS" = true ] ; then
            import_imagestreams_and_templates
