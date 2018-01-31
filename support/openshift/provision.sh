@@ -237,9 +237,12 @@ function create_projects() {
 }
 
 function import_imagestreams_and_templates() {
+  echo_header "Patching Image Streams"
+  ./patch_image_streams.sh
+
   echo_header "Importing Image Streams"
   #oc create -f ./rhdm70-image-streams.yaml
-  oc create -f ./rhdm70-image-streams-internal.yaml
+  oc create -f ./rhdm70-image-streams-tech-preview.yaml
   #oc create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/rhdm70-dev/rhdm70-image-streams.yaml
 
   echo_header "Importing Templates"
