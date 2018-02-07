@@ -47,8 +47,21 @@ The following steps can be used to configure and run the demo in a container
 
 Option 3 - Install on OpenShift
 -----------------------------------------------------
-Coming soon.
+OpenShift can be installed several ways, so the following instructions only depend upon the `oc` client being connected to an instance of OpenShift.
 
+**To deploy this demo:**
+
+1. Clone this repo: https://github.com/jbossdemocentral/rhdm7-install-demo
+2. Within the cloned directory, `cd` into `support/openshift`
+3. Run `./provision.sh setup rhdm7-install --with-imagestreams true`
+
+The `--with-imagestreams true` parameter installs the DM7 image streams and templates into the project namespace instead of the `openshift` namespace (for which you need admin rights). If you already have the required image-streams and templates installed in your OpenShift environment in the `openshift` namespace, you can omit the `--with-imagestreams true` from the setup command.
+
+NOTE: One of the demo images expects a [Persistent Volume](https://docs.openshift.com/container-platform/3.6/architecture/additional_concepts/storage.html) which has both `ReadWriteOnce` (RWO) *and* `ReadWriteMany` (RWX) Access Types. If no PVs matching this description are available, deployment of that image will fail until a PV of that type is available.
+
+**To undeploy this demo:**
+
+1. Run `./provision delete rhdm7-install`
 
 Supporting Articles
 -------------------
