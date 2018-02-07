@@ -48,6 +48,8 @@
         <property name="org.kie.server.controller.user" value="kieserver"/>
         <property name="org.kie.server.controller.password" value="kieserver1!"/>
         <property name="org.kie.server.location" value="http://localhost:8080/kie-server/services/rest/server"/>
+	<property name="org.jbpm.server.ext.disabled" value="true"/>
+        <property name="org.jbpm.ui.server.ext.disabled" value="true"/>
     </system-properties>
     <management>
         <security-realms>
