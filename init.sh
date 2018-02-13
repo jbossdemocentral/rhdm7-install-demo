@@ -1,7 +1,7 @@
 #!/bin/sh
 DEMO="Install Demo"
 AUTHORS="Red Hat"
-PROJECT="git@github.com:jbossdemocentral/brms-install-demo.git"
+PROJECT="git@github.com:jbossdemocentral/rhdm7-install-demo.git"
 PRODUCT="Red Hat Decision Manager"
 TARGET=./target
 JBOSS_HOME=$TARGET/jboss-eap-7.1

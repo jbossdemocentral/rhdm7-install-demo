@@ -72,7 +72,7 @@ Copy-Item "$SUPPORT_DIR\docker\Dockerfile" "$PROJECT_HOME" -force
 
 Write-Host "Starting Docker build.`n"
 
-$argList = "build -t jbossdemocentral/brms-install-demo $PROJECT_HOME"
+$argList = "build -t jbossdemocentral/rhdm7-install-demo $PROJECT_HOME"
 $process = (Start-Process -FilePath docker.exe -ArgumentList $argList -Wait -PassThru -NoNewWindow)
 Write-Host "`n"
 
