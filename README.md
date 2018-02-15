@@ -52,13 +52,16 @@ This installation option will install the Decision Manager 7 and Decision Servic
 
 4. Open the project "RHDM7 Install Demo". Open the "Overview" screen. Wait until the 2 pods, "rhdm7-loan-rhdmcentr" and "rhdm7-loan-kieserver" have been deployed.
 
-4. Open the "Applications -> Routes" screen. Click on the "Hostname" value next to "rhdm7-loan-rhdmcentr". This opens the Decision Central console.
+5. Open the "Applications -> Routes" screen. Click on the "Hostname" value next to "rhdm7-loan-rhdmcentr". This opens the Decision Central console.
 
-5. Login to Decision Central (u:dmAdmin, p:redhatdm1!)
+6. Login to Decision Central (u:dmAdmin, p:redhatdm1!)
 
-6. Enjoy the installed and configured Red Hat Decision Manager 7.
+7. Enjoy the installed and configured Red Hat Decision Manager 7.
+
 
 ### Scripted installation
+This installation option will install the Decision Manager 7 and Decision Service in OpenShift using a the provided `provision.sh` script, which gives
+the user a bit more control how to provision to OpenShift.
 
 1. [Download and unzip.](https://github.com/jbossdemocentral/rhdm7-install-demo/archive/master.zip) or [clone this repo](https://github.com/jbossdemocentral/rhdm7-install-demo.git).
 
@@ -75,9 +78,9 @@ This installation option will install the Decision Manager 7 and Decision Servic
 
     ---
 
-5. To delete an already provisioned demo, run `./provision.sh delete rhdm7-loan`.
+6. After provisioning, follow the instructions from above "Option 2 - Automated installation, manual project import", starting at step 3.
 
-6. After provisioning, follow the instructions from above "Option 2 - Automated installation, manual project import", starting at step 2.
+7. To delete an already provisioned demo, run `./provision.sh delete rhdm7-loan`.
 
 
 Option 3 - Run in Docker
@@ -94,7 +97,7 @@ The following steps can be used to configure and run the demo in a container
 
 5. Login to Decision Central at: http://&lt;CONTAINER_HOST&gt;:8080/decision-central  (u:dmAdmin / p:redhatdm1!)
 
-7. Enjoy installed and configured Red Hat Decision Manager 7.
+7. Enjoy the installed and configured Red Hat Decision Manager 7.
 
 
 Supporting Articles
