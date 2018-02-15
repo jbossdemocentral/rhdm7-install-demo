@@ -17,7 +17,6 @@ Option 1 - Install on your machine
 ----------------------------------
 1. [Download and unzip](https://github.com/jbossdemocentral/rhdm7-install-demo/archive/master.zip) or [clone this repo](https://github.com/jbossdemocentral/rhdm7-install-demo.git).
 
-
 2. Add the EAP zip archive and Decision Manager deployables to the installs directory.
 
 3. Run `init.sh` (Linux/macOS) or `init.ps1` (Windows) file.
@@ -33,12 +32,12 @@ Option 2 - Run on OpenShift
 -----------------------------------------
 This demo can be installed on Red Hat OpenShift in various ways. We'll explain the different options provided.
 
-All installation options require an `oc` client installation that is connected to a running OpenShift instance. More information on OpenShift and how to setup a local OpenShift environment can be found here: TODO
+All installation options require an `oc` client installation that is connected to a running OpenShift instance. More information on OpenShift and how to setup a local OpenShift development environment based on the Red Hat Container Development Kit can be found [here](https://developers.redhat.com/products/cdk/overview/).
 
 ---
 **NOTE**
 
-The Decision Central image requires a [Persistent Volume](https://docs.openshift.com/container-platform/3.7/architecture/additional_concepts/storage.html) which has both `ReadWriteOnce` (RWO) *and* `ReadWriteMany` (RWX) Access Types. If no PVs matching this description are available, deployment of that image will fail until a PV of that type is available.
+The Red Hat Decision Manager 7 - Decision Central image requires a [Persistent Volume](https://docs.openshift.com/container-platform/3.7/architecture/additional_concepts/storage.html) which has both `ReadWriteOnce` (RWO) *and* `ReadWriteMany` (RWX) Access Types. If no PVs matching this description are available, deployment of that image will fail until a PV of that type is available.
 
 ---
 
