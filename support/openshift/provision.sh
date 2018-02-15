@@ -48,6 +48,13 @@ ARG_DEMO=
 
 while :; do
     case $1 in
+        info)
+          ARG_COMMAND=info
+          if [ -n "$2" ]; then
+              ARG_DEMO=$2
+              shift
+          fi
+          ;;
         setup)
             ARG_COMMAND=setup
             if [ -n "$2" ]; then
@@ -139,7 +146,7 @@ OPENSHIFT_USER=${ARG_USERNAME:-$LOGGEDIN_USER}
 PRJ_SUFFIX=${ARG_PROJECT_SUFFIX:-`echo $OPENSHIFT_USER | sed -e 's/[^-a-z0-9]/-/g'`}
 PRJ=("rhdm7-install-$PRJ_SUFFIX" "RHDM7 Install Demo" "Red Hat Decision Manager 7 Install Demo")
 
-DEMO_NAME=
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # KIE Parameters
 KIE_ADMIN_USER=dmAdmin
@@ -180,9 +187,11 @@ function echo_header() {
 function print_info() {
   echo_header "Configuration"
 
-  OPENSHIFT_MASTER=$(oc status | head -1 | sed 's#.*\(https://[^ ]*\)#\1#g') # must run after projects are created
+  #OPENSHIFT_MASTER=$(oc status | head -1 | sed 's#.*\(https://[^ ]*\)#\1#g') # must run after projects are created
+  OPENSHIFT_MASTER=$(oc version | tail -3 | head -1 | sed 's#.*\(https://[^ ]*\)#\1#g')
 
   echo "Demo name:           $ARG_DEMO"
+  echo "Project name:        ${PRJ[0]}"
   echo "OpenShift master:    $OPENSHIFT_MASTER"
   echo "Current user:        $LOGGEDIN_USER"
   echo "Project suffix:      $PRJ_SUFFIX"
@@ -190,18 +199,6 @@ function print_info() {
 
 function pre_condition_check() {
   echo_header "Checking pre-conditions"
-  echo_header "Testing connection to Red Hat Engineering Docker Registry"
-  # Disable "set -e" as we want to check for exit conditions when "ping" returns non-zero so we can print a proper error message."
-  set +e
-  ping -q -c5 docker-registry.engineering.redhat.com  > /dev/null
-  if [ $? -eq 0 ]
-  then
-    echo "ok"
-  else
-    echo "Host unreachable, unable to retrieve OpenShift Red Hat Decision Manager 7 images. Please enable your Red Hat VPN to continue the setup."
-    exit 1
-  fi
-  set -e
 }
 
 # waits while the condition is true until it becomes false or it times out
@@ -232,41 +229,25 @@ function create_projects() {
   echo_header "Creating project..."
 
   echo "Creating project ${PRJ[0]}"
-#  oc new-project $PRJ --display-name="$PRJ_DISPLAY_NAME" --description="$PRJ_DESCRIPTION" >/dev/null
   oc new-project "${PRJ[0]}" --display-name="${PRJ[1]}" --description="${PRJ[2]}" >/dev/null
 }
 
 function import_imagestreams_and_templates() {
-  echo_header "Patching Image Streams"
-  ./patch_image_streams.sh
-
   echo_header "Importing Image Streams"
-  #oc create -f ./rhdm70-image-streams.yaml
-  oc create -f ./rhdm70-image-streams-tech-preview.yaml
-  #oc create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/rhdm70-dev/rhdm70-image-streams.yaml
+  oc create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/rhdm70-dev/rhdm70-image-streams.yaml
 
   echo_header "Importing Templates"
-  oc create -f ./rhdm70-full.yaml
-  oc create -f ./rhdm70-kieserver.yaml
-  oc create -f ./rhdm70-kieserver-basic-s2i.yaml
-  oc create -f ./rhdm70-kieserver-https-s2i.yaml
-
-  #oc create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/rhdm70-dev/templates/rhdm70-full.yaml
-  #oc create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/rhdm70-dev/templates/rhdm70-kieserver.yaml
-  #oc create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/rhdm70-dev/templates/rhdm70-kieserver-basic-s2i.yaml
-  #oc create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/rhdm70-dev/templates/rhdm70-kieserver-https-s2i.yaml
+  oc create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/rhdm70-dev/templates/rhdm70-full.yaml
+  oc create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/rhdm70-dev/templates/rhdm70-kieserver.yaml
+  oc create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/rhdm70-dev/templates/rhdm70-kieserver-basic-s2i.yaml
+  oc create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/rhdm70-dev/templates/rhdm70-kieserver-https-s2i.yaml
 }
 
 
 function import_secrets_and_service_account() {
   echo_header "Importing secrets and service account."
-
-  oc create -f ./decisioncentral-app-secret.yaml
-  oc create -f ./kieserver-app-secret.yaml
-
-  #oc create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/rhdm70-dev/decisioncentral-app-secret.yaml
-  #oc create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/rhdm70-dev/kieserver-app-secret.yaml
-
+  oc create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/rhdm70-dev/decisioncentral-app-secret.yaml
+  oc create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/rhdm70-dev/kieserver-app-secret.yaml
 }
 
 function create_application() {
@@ -376,6 +357,10 @@ START=`date +%s`
 echo_header "$DEMO_NAME ($(date))"
 
 case "$ARG_COMMAND" in
+    info)
+      echo "Printing information $DEMO_NAME ($ARG_DEMO)..."
+      print_info
+      ;;
     delete)
         echo "Delete $DEMO_NAME ($ARG_DEMO)..."
         oc delete project ${PRJ[0]}
