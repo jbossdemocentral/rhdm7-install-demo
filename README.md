@@ -24,7 +24,7 @@ Option 1 - Install on your machine
 
 4. Start the runtime: `./target/jboss-eap-7.1/bin/standalone.sh'` (Linux/macOS) or `.\target\jboss-eap-7.1\bin\standalone.ps1` (Windows)
 
-5. Login to http://localhost:8080/decision-central  (u:dmAdmin / p:redhatdm1!)
+5. Login to Decision Central at: http://localhost:8080/decision-central  (u:dmAdmin / p:redhatdm1!)
 
 6. Enjoy the installed and configured Red Hat Decision Manager 7.
 
@@ -93,7 +93,7 @@ The following steps can be used to configure and run the demo in a container
 
 4. Start the container: `docker run -it -p 8080:8080 -p 9990:9990 jbossdemocentral/rhdm7-install-demo`
 
-5. Login to http://&lt;CONTAINER_HOST&gt;:8080/decision-central  (u:dmAdmin / p:redhatdm1!)
+5. Login to Decision Central at: http://&lt;CONTAINER_HOST&gt;:8080/decision-central  (u:dmAdmin / p:redhatdm1!)
 
 7. Enjoy installed and configured Red Hat Decision Manager 7.
 
