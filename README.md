@@ -2,7 +2,7 @@ Red Hat Decision Manager 7 Install Demo
 =======================================
 Project to automate the installation of this product without preconfiguration beyond a single admin user.
 
-There are four options available to you for using this demo; local, OpenShift and Docker.
+There are three options available to you for using this demo: local, OpenShift and Docker.
 
 Software
 --------
