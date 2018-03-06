@@ -1,4 +1,4 @@
-#!/bin/sh
+  #!/bin/sh
 #!/bin/bash
 set -e
 
@@ -35,6 +35,7 @@ function usage() {
     echo "   --project-suffix [suffix] Suffix to be added to demo project names e.g. ci-SUFFIX. If empty, user will be used as suffix."
     echo "   --run-verify              Run verify after provisioning"
     echo "   --with-imagestreams       Creates the image streams in the project. Useful when required ImageStreams are not available in the 'openshift' namespace and cannot be provisioned in that 'namespace'."
+    echo "   --pv-capacity [capacity]  Capacity of the persistent volume. Defaults to 512Mi as set by the Red Hat Decision Manager OpenShift template."
     # TODO support --maven-mirror-url
     echo
 }
@@ -44,6 +45,7 @@ ARG_PROJECT_SUFFIX=
 ARG_COMMAND=
 ARG_RUN_VERIFY=false
 ARG_WITH_IMAGESTREAMS=false
+ARG_PV_CAPACITY=512Mi
 ARG_DEMO=
 
 while :; do
@@ -115,6 +117,12 @@ while :; do
             ;;
         --with-imagestreams)
             ARG_WITH_IMAGESTREAMS=true
+            ;;
+        --pv-capacity)
+            if [ -n "$2" ]; then
+                ARG_PV_CAPACITY=$2
+                shift
+            fi
             ;;
         -h|--help)
             usage
@@ -256,12 +264,12 @@ function create_application() {
   IMAGE_STREAM_NAMESPACE="openshift"
 
   if [ "$ARG_WITH_IMAGESTREAMS" = true ] ; then
-    IMAGE_STREAM_NAMESPACE=$PRJ
+    IMAGE_STREAM_NAMESPACE=${PRJ[0]}
   fi
 
   oc new-app --template=rhdm70-full-persistent \
 			-p APPLICATION_NAME="$ARG_DEMO" \
-			-p IMAGE_STREAM_NAMESPACE="$PRJ" \
+			-p IMAGE_STREAM_NAMESPACE="$IMAGE_STREAM_NAMESPACE" \
 			-p KIE_ADMIN_USER="$KIE_ADMIN_USER" \
 			-p KIE_ADMIN_PWD="$KIE_ADMIN_PWD" \
 			-p KIE_SERVER_CONTROLLER_USER="$KIE_SERVER_CONTROLLER_USER" \
@@ -269,7 +277,8 @@ function create_application() {
 			-p KIE_SERVER_USER="$KIE_SERVER_USER" \
 			-p KIE_SERVER_PWD="$KIE_SERVER_PWD" \
 			-p MAVEN_REPO_USERNAME="$KIE_ADMIN_USER" \
-			-p MAVEN_REPO_PASSWORD="$KIE_ADMIN_PWD"
+			-p MAVEN_REPO_PASSWORD="$KIE_ADMIN_PWD" \
+      -p DECISION_CENTRAL_VOLUME_CAPACITY="$ARG_PV_CAPACITY"
 
 }
 

@@ -69,14 +69,16 @@ the user a bit more control how to provision to OpenShift.
 
 3. Run `./provision.sh -h` to inspect the installation options.
 
-4. To provision the demo, with the OpenShift ImageStreams in the project's namespace, run `./provision.sh setup rhdm7-install --with-imagestreams true`.
+4. To provision the demo, with the OpenShift ImageStreams in the project's namespace, run `./provision.sh setup rhdm7-install --with-imagestreams`.
 
     ---
     **NOTE**
 
-    The `--with-imagestreams true` parameter installs the Decision Manager 7 image streams and templates into the project namespace instead of the `openshift` namespace (for which you need admin rights). If you already have the required image-streams and templates installed in your OpenShift environment in the `openshift` namespace, you can omit the `--with-imagestreams true` from the setup command.
+    The `--with-imagestreams` parameter installs the Decision Manager 7 image streams and templates into the project namespace instead of the `openshift` namespace (for which you need admin rights). If you already have the required image-streams and templates installed in your OpenShift environment in the `openshift` namespace, you can omit the `--with-imagestreams` from the setup command.
 
     ---
+
+5. A second useful option is the `--pv-capacity` option, which allows you to set the capacity of the _Persistent Volume_ used by the Decision Central component. This is for example required when installing this demo in OpenShift Online, as the _Persistent Volume Claim_ needs to be set to `1Gi` instead of the default `512Mi`. So, to install this demo in OpenShift Online, you can use the following command: `./provision.sh setup rhdm7-install --pv-capacity 1Gi --with-imagestreams`
 
 6. After provisioning, follow the instructions from above "Option 2 - Automated installation, manual project import", starting at step 3.
 

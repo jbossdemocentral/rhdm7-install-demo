@@ -27,5 +27,5 @@ else if [ ! $PRJ_EXISTS -eq 1 ]; then
 fi
 
 echo_header "Provisioning Red Hat Decision Manager 7 Install Demo."
-./support/openshift/provision.sh setup rhdm7-install --with-imagestreams true
+./support/openshift/provision.sh setup rhdm7-install --with-imagestreams
 echo_header "Setup completed."
