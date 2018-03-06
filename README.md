@@ -50,9 +50,9 @@ This installation option will install the Decision Manager 7 and Decision Servic
 
 3. Login to your OpenShift console. For a local OpenShift installation this is usually: https://{host}:8443/console
 
-4. Open the project "RHDM7 Install Demo". Open the "Overview" screen. Wait until the 2 pods, "rhdm7-loan-rhdmcentr" and "rhdm7-loan-kieserver" have been deployed.
+4. Open the project "RHDM7 Install Demo". Open the "Overview" screen. Wait until the 2 pods, "rhdm7-install-rhdmcentr" and "rhdm7-install-kieserver" have been deployed.
 
-5. Open the "Applications -> Routes" screen. Click on the "Hostname" value next to "rhdm7-loan-rhdmcentr". This opens the Decision Central console.
+5. Open the "Applications -> Routes" screen. Click on the "Hostname" value next to "rhdm7-install-rhdmcentr". This opens the Decision Central console.
 
 6. Login to Decision Central (u:dmAdmin, p:redhatdm1!)
 
@@ -69,7 +69,7 @@ the user a bit more control how to provision to OpenShift.
 
 3. Run `./provision.sh -h` to inspect the installation options.
 
-4. To provision the demo, with the OpenShift ImageStreams in the project's namespace, run `./provision.sh setup rhdm7-loan --with-imagestreams true`.
+4. To provision the demo, with the OpenShift ImageStreams in the project's namespace, run `./provision.sh setup rhdm7-install --with-imagestreams true`.
 
     ---
     **NOTE**
@@ -80,7 +80,7 @@ the user a bit more control how to provision to OpenShift.
 
 6. After provisioning, follow the instructions from above "Option 2 - Automated installation, manual project import", starting at step 3.
 
-7. To delete an already provisioned demo, run `./provision.sh delete rhdm7-loan`.
+7. To delete an already provisioned demo, run `./provision.sh delete rhdm7-install`.
 
 
 Option 3 - Run in Docker
