@@ -46,7 +46,7 @@ This installation option will install the Decision Manager 7 and Decision Servic
 
 1. [Download and unzip](https://github.com/jbossdemocentral/rhdm7-install-demo/archive/master.zip) or [clone this repo](https://github.com/jbossdemocentral/rhdm7-install-demo.git).
 
-2. Run the "init-openshift.sh" file (for Linux and macOS, Windows support will be added in the near future). This will create a new project and application in OpenShift.
+2. Run the `init-openshift.sh` (Linux/macOS) or `init-openshift.ps1` (Windows) file. This will create a new project and application in OpenShift.
 
 3. Login to your OpenShift console. For a local OpenShift installation this is usually: https://{host}:8443/console
 
@@ -60,29 +60,28 @@ This installation option will install the Decision Manager 7 and Decision Servic
 
 
 ### Scripted installation
-This installation option will install the Decision Manager 7 and Decision Service in OpenShift using a the provided `provision.sh` script, which gives
-the user a bit more control how to provision to OpenShift.
+This installation option will install the Decision Manager 7 and Decision Service in OpenShift using the provided `provision.sh` (Linux/macOS) or `provision.ps1` (Windows) script, which gives the user a bit more control how to provision to OpenShift.
 
 1. [Download and unzip.](https://github.com/jbossdemocentral/rhdm7-install-demo/archive/master.zip) or [clone this repo](https://github.com/jbossdemocentral/rhdm7-install-demo.git).
 
-2. In the demo directory, go to `./support/openshift`. In that directory you will find a `provision.sh` script. (Windows support will be introduced at a later time).
+2. In the demo directory, go to `./support/openshift`. In that directory you will find the `provision.sh` (Linux/macOS) and `provision.ps1` (Windows) script.
 
-3. Run `./provision.sh -h` to inspect the installation options.
+3. Run `./provision.sh -h` (Linux/macOS) or `./provision.ps1 -h` (Windows) to inspect the installation options.
 
-4. To provision the demo, with the OpenShift ImageStreams in the project's namespace, run `./provision.sh setup rhdm7-install --with-imagestreams`.
+4. To provision the demo, with the OpenShift ImageStreams in the project's namespace, run `./provision.sh setup rhdm7-install --with-imagestreams` (Linux/macOS) or `./provision.sh -command setup -demo rhdm7-install -with-imagestreams` (Windows)
 
     ---
     **NOTE**
 
-    The `--with-imagestreams` parameter installs the Decision Manager 7 image streams and templates into the project namespace instead of the `openshift` namespace (for which you need admin rights). If you already have the required image-streams and templates installed in your OpenShift environment in the `openshift` namespace, you can omit the `--with-imagestreams` from the setup command.
+    The `with-imagestreams` parameter installs the Decision Manager 7 image streams and templates into the project namespace instead of the `openshift` namespace (for which you need admin rights). If you already have the required image-streams and templates installed in your OpenShift environment in the `openshift` namespace, you can omit the `with-imagestreams` from the setup command.
 
     ---
 
-5. A second useful option is the `--pv-capacity` option, which allows you to set the capacity of the _Persistent Volume_ used by the Decision Central component. This is for example required when installing this demo in OpenShift Online, as the _Persistent Volume Claim_ needs to be set to `1Gi` instead of the default `512Mi`. So, to install this demo in OpenShift Online, you can use the following command: `./provision.sh setup rhdm7-install --pv-capacity 1Gi --with-imagestreams`
+5. A second useful option is the `--pv-capacity` (Linux/macOS)/ `-pv-capacity` (Windows) option, which allows you to set the capacity of the _Persistent Volume_ used by the Decision Central component. This is for example required when installing this demo in OpenShift Online, as the _Persistent Volume Claim_ needs to be set to `1Gi` instead of the default `512Mi`. So, to install this demo in OpenShift Online, you can use the following command: `./provision.sh setup rhdm7-install --pv-capacity 1Gi --with-imagestreams` (Linux/macOS) or `./provision.ps1 -command setup -demo rhdm7-install -pv-capacity 1Gi -with-imagestreams` (Windows).
 
 6. After provisioning, follow the instructions from above "Option 2 - Automated installation, manual project import", starting at step 3.
 
-7. To delete an already provisioned demo, run `./provision.sh delete rhdm7-install`.
+7. To delete an already provisioned demo, run `./provision.sh delete rhdm7-install` (Linux/macOS) or `./provision.ps1 -command delete -demo rhdm7-install` (Windows).
 
 
 Option 3 - Run in Docker
@@ -93,7 +92,7 @@ The following steps can be used to configure and run the demo in a container
 
 2. Add the EAP zip archive and Decision Manager deployables to the installs directory.
 
-3. Run the 'init-docker.sh' (Linux/macOS) or 'init-docker.ps1' (Windows) file.
+3. Run the `init-docker.sh` (Linux/macOS) or `init-docker.ps1` (Windows) file.
 
 4. Start the container: `docker run -it -p 8080:8080 -p 9990:9990 jbossdemocentral/rhdm7-install-demo`
 

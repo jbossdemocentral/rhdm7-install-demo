@@ -170,14 +170,13 @@ KIE_SERVER_PWD=kieserver1!
 ################################################################################
 case $ARG_DEMO in
     rhdm7-install)
-	   # No need to set anything here anymore.
-        DEMO_NAME="Red Hat Decision Manager 7 Install Demo"
-	;;
+      DEMO_NAME="Red Hat Decision Manager 7 Install Demo"
+	    ;;
     *)
-        echo "ERROR: Invalid demo name: \"$ARG_DEMO\""
-        usage
-        exit 255
-        ;;
+      echo "ERROR: Invalid demo name: \"$ARG_DEMO\""
+      usage
+      exit 255
+      ;;
 esac
 
 

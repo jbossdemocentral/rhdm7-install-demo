@@ -18,7 +18,7 @@ if [ $PRJ_EXISTS -eq 0 ]; then
    ./support/openshift/provision.sh delete rhdm7-install
    # Wait until the project has been removed
    echo_header "Waiting for OpenShift to clean deleted project."
-   sleep 10
+   sleep 20
 else if [ ! $PRJ_EXISTS -eq 1 ]; then
 	echo "An error occurred communicating with your OpenShift instance."
 	echo "Please make sure that your logged in to your OpenShift instance with your 'oc' client."
