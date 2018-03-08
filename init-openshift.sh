@@ -1,5 +1,11 @@
 #!/bin/sh
 
+command -v oc >/dev/null 2>&1 || {
+  echo >&2 "The oc client tools need to be installed to connect to OpenShift.";
+  echo >&2 "Download it from https://www.openshift.org/download.html and confirm that \"oc version\" runs.";
+  exit 1;
+}
+
 function echo_header() {
   echo
   echo "########################################################################"
