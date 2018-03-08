@@ -16,7 +16,7 @@ param (
 if ((Get-Command "oc" -ErrorAction SilentlyContinue) -eq $null)
 {
    Write-Output "The oc client tools need to be installed to connect to OpenShift."
-   Write-Output "Download it from https://www.openshift.org/download.html and confirm that \"oc version\" runs.`n"
+   Write-Output "Download it from https://www.openshift.org/download.html and confirm that ""oc version"" runs.`n"
    exit
 }
 
@@ -203,15 +203,6 @@ Function Create-Projects() {
     $argList = "new-project ""$($PRJ[0])"" --display-name=""$($PRJ[1])"" --description=""$($PRJ[2])"""
 
     Call-Oc $argList $False "Error occurred during project creation." $True
-<#
-    try {
-    	Invoke-Expression "oc $argList" | out-null
-      if ($lastexitcode) {throw $er}
-    } catch {
-  	  Write-Error "Error occurred during project creation."
-    	exit
-    }
-    #>
 }
 
 
