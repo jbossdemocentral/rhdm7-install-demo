@@ -1,7 +1,7 @@
 if ((Get-Command "oc" -ErrorAction SilentlyContinue) -eq $null)
 {
    Write-Output "The oc client tools need to be installed to connect to OpenShift."
-   Write-Output "Download it from https://www.openshift.org/download.html and confirm that \"oc version\" runs.`n"
+   Write-Output "Download it from https://www.openshift.org/download.html and confirm that ""oc version"" runs.`n"
    exit
 }
 
