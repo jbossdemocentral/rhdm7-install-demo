@@ -258,7 +258,7 @@ function import_secrets_and_service_account() {
 }
 
 function create_application() {
-  echo_header "Creating BPM Suite 7 Application config."
+  echo_header "Creating Decision Manager 7 Application config."
 
   IMAGE_STREAM_NAMESPACE="openshift"
 
