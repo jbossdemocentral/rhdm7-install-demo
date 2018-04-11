@@ -103,7 +103,7 @@ The following steps can be used to configure and run the demo in a container
 
 Supporting Articles
 -------------------
-- [Getting Started with Red Hat Decision Manager 7](https://upload.wikimedia.org/wikipedia/commons/6/67/Learning_Curve_--_Coming_Soon_Placeholder.png)
+- [Getting Started with Red Hat Decision Manager 7](https://developers.redhat.com/blog/2018/03/19/red-hat-decision-manager-7/)
 
 Released versions
 -----------------
