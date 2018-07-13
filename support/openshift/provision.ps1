@@ -105,6 +105,11 @@ $KIE_SERVER_CONTROLLER_PWD="kieserver1!"
 $KIE_SERVER_USER="kieserver"
 $KIE_SERVER_PWD="kieserver1!"
 
+#OpenShift Template Parameters
+#GitHub tag referencing the image streams and templates.
+$OPENSHIFT_DM7_TEMPLATES_TAG="rhdm70"
+
+
 ################################################################################
 # DEMO MATRIX                                                                  #
 ################################################################################
@@ -209,19 +214,19 @@ Function Create-Projects() {
 Function Import-ImageStreams-And-Templates() {
   Write-Output-Header "Importing Image Streams"
   #Invoke-Expression "oc create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/rhdm70-dev/rhdm70-image-streams.yaml"
-  Call-Oc "create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/rhdm70-dev/rhdm70-image-streams.yaml" $True "Error importing Image Streams" $True
+  Call-Oc "create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/$OPENSHIFT_DM7_TEMPLATES_TAG/rhdm70-image-streams.yaml" $True "Error importing Image Streams" $True
 
   Write-Output-Header "Importing Templates"
-  Call-Oc "create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/rhdm70-dev/templates/rhdm70-full.yaml" $True "Error importing Template" $True
-  Call-Oc "create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/rhdm70-dev/templates/rhdm70-kieserver.yaml" $True "Error importing Template" $True
-  Call-Oc "create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/rhdm70-dev/templates/rhdm70-kieserver-basic-s2i.yaml" $True "Error importing Template" $True
-  Call-Oc "create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/rhdm70-dev/templates/rhdm70-kieserver-https-s2i.yaml" $True "Error importing Template" $True
+  Call-Oc "create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/$OPENSHIFT_DM7_TEMPLATES_TAG/templates/rhdm70-full.yaml" $True "Error importing Template" $True
+  Call-Oc "create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/$OPENSHIFT_DM7_TEMPLATES_TAG/templates/rhdm70-kieserver.yaml" $True "Error importing Template" $True
+  Call-Oc "create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/$OPENSHIFT_DM7_TEMPLATES_TAG/templates/rhdm70-kieserver-basic-s2i.yaml" $True "Error importing Template" $True
+  Call-Oc "create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/$OPENSHIFT_DM7_TEMPLATES_TAG/templates/rhdm70-kieserver-https-s2i.yaml" $True "Error importing Template" $True
 }
 
 Function Import-Secrets-And-Service-Account() {
   Write-Output-Header "Importing secrets and service account."
-  Call-Oc "create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/rhdm70-dev/decisioncentral-app-secret.yaml" $True "Error importing Decision Central secret." $True
-  Call-Oc "create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/rhdm70-dev/kieserver-app-secret.yaml" $True "Error importing KIE-Server secret." $True
+  Call-Oc "create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/$OPENSHIFT_DM7_TEMPLATES_TAG/decisioncentral-app-secret.yaml" $True "Error importing Decision Central secret." $True
+  Call-Oc "create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/$OPENSHIFT_DM7_TEMPLATES_TAG/kieserver-app-secret.yaml" $True "Error importing KIE-Server secret." $True
 }
 
 Function Create-Application() {
