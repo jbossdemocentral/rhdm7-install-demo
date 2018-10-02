@@ -107,8 +107,7 @@ $KIE_SERVER_PWD="kieserver1!"
 
 #OpenShift Template Parameters
 #GitHub tag referencing the image streams and templates.
-$OPENSHIFT_DM7_TEMPLATES_TAG="rhdm70"
-
+$OPENSHIFT_DM7_TEMPLATES_TAG="7.0.1.GA"
 
 ################################################################################
 # DEMO MATRIX                                                                  #
