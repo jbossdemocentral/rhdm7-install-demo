@@ -166,7 +166,7 @@ KIE_SERVER_PWD=kieserver1!
 
 #OpenShift Template Parameters
 #GitHub tag referencing the image streams and templates.
-OPENSHIFT_DM7_TEMPLATES_TAG=7.0.1.GA
+OPENSHIFT_DM7_TEMPLATES_TAG=7.1.0.GA
 
 
 ################################################################################
@@ -245,20 +245,21 @@ function create_projects() {
 
 function import_imagestreams_and_templates() {
   echo_header "Importing Image Streams"
-  oc create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/$OPENSHIFT_DM7_TEMPLATES_TAG/rhdm70-image-streams.yaml
+  oc create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/$OPENSHIFT_DM7_TEMPLATES_TAG/rhdm71-image-streams.yaml
+
+  echo_header "Patching the ImageStreams"
+  oc patch is/rhdm71-decisioncentral-openshift --type='json' -p '[{"op": "replace", "path": "/spec/tags/0/from/name", "value": "registry.access.redhat.com/rhdm-7/rhdm71-decisioncentral-openshift:1.0"}]'
+  oc patch is/rhdm71-kieserver-openshift --type='json' -p '[{"op": "replace", "path": "/spec/tags/0/from/name", "value": "registry.access.redhat.com/rhdm-7/rhdm71-kieserver-openshift:1.0"}]'
 
   echo_header "Importing Templates"
-  oc create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/$OPENSHIFT_DM7_TEMPLATES_TAG/templates/rhdm70-full.yaml
-  oc create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/$OPENSHIFT_DM7_TEMPLATES_TAG/templates/rhdm70-kieserver.yaml
-  oc create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/$OPENSHIFT_DM7_TEMPLATES_TAG/templates/rhdm70-kieserver-basic-s2i.yaml
-  oc create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/$OPENSHIFT_DM7_TEMPLATES_TAG/templates/rhdm70-kieserver-https-s2i.yaml
+  oc create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/$OPENSHIFT_DM7_TEMPLATES_TAG/templates/rhdm71-authoring.yaml
 }
 
 
 function import_secrets_and_service_account() {
   echo_header "Importing secrets and service account."
-  oc create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/$OPENSHIFT_DM7_TEMPLATES_TAG/decisioncentral-app-secret.yaml
-  oc create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/$OPENSHIFT_DM7_TEMPLATES_TAG/kieserver-app-secret.yaml
+  oc process -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/$OPENSHIFT_DM7_TEMPLATES_TAG/example-app-secret-template.yaml -p SECRET_NAME=decisioncentral-app-secret | oc create -f -
+  oc process -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/$OPENSHIFT_DM7_TEMPLATES_TAG/example-app-secret-template.yaml -p SECRET_NAME=kieserver-app-secret | oc create -f -
 }
 
 function create_application() {
@@ -270,7 +271,7 @@ function create_application() {
     IMAGE_STREAM_NAMESPACE=${PRJ[0]}
   fi
 
-  oc new-app --template=rhdm70-full-persistent \
+  oc new-app --template=rhdm71-authoring \
 			-p APPLICATION_NAME="$ARG_DEMO" \
 			-p IMAGE_STREAM_NAMESPACE="$IMAGE_STREAM_NAMESPACE" \
 			-p KIE_ADMIN_USER="$KIE_ADMIN_USER" \
@@ -279,6 +280,8 @@ function create_application() {
 			-p KIE_SERVER_CONTROLLER_PWD="$KIE_SERVER_CONTROLLER_PWD" \
 			-p KIE_SERVER_USER="$KIE_SERVER_USER" \
 			-p KIE_SERVER_PWD="$KIE_SERVER_PWD" \
+      -p DECISION_CENTRAL_HTTPS_SECRET="decisioncentral-app-secret" \
+      -p KIE_SERVER_HTTPS_SECRET="kieserver-app-secret" \
 			-p MAVEN_REPO_USERNAME="$KIE_ADMIN_USER" \
 			-p MAVEN_REPO_PASSWORD="$KIE_ADMIN_PWD" \
       -p DECISION_CENTRAL_VOLUME_CAPACITY="$ARG_PV_CAPACITY"
