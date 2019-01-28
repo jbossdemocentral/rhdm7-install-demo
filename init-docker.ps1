@@ -1,19 +1,7 @@
+. .\init-properties.ps1
 
 # wipe screen
 Clear-Host
-
-$PROJECT_HOME = $PSScriptRoot
-$DEMO="Install Demo"
-$AUTHORS="Red Hat"
-$PROJECT="git@github.com:jbossdemocentral/rhdm7-install-demo.git"
-$PRODUCT="Red Hat Decision Manager"
-$SRC_DIR="$PROJECT_HOME\installs"
-$SUPPORT_DIR="$PROJECT_HOME\support"
-$DM_VERSION="7.1.0"
-$DM_DECISION_CENTRAL="rhdm-$DM_VERSION-decision-central-eap7-deployable.zip"
-$DM_KIE_SERVER="rhdm-$DM_VERSION-kie-server-ee7.zip"
-$EAP="jboss-eap-7.1.0.zip"
-$VERSION="7.0"
 
 set NOPAUSE=true
 
@@ -73,7 +61,7 @@ Copy-Item "$SUPPORT_DIR\docker\Dockerfile" "$PROJECT_HOME" -force
 
 Write-Host "Starting Docker build.`n"
 
-$argList = "build -t jbossdemocentral/rhdm7-install-demo $PROJECT_HOME"
+$argList = "build --no-cache -t jbossdemocentral/rhdm7-install-demo --build-arg DM_VERSION=$DM_VERSION --build-arg DM_DECISION_CENTRAL=$DM_DECISION_CENTRAL --build-arg DM_KIE_SERVER=$DM_KIE_SERVER --build-arg EAP=$EAP --build-arg JBOSS_EAP=$JBOSS_EAP $PROJECT_HOME"
 $process = (Start-Process -FilePath docker.exe -ArgumentList $argList -Wait -PassThru -NoNewWindow)
 Write-Host "`n"
 

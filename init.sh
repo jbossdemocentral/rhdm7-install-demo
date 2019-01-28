@@ -1,21 +1,5 @@
 #!/bin/sh
-DEMO="Install Demo"
-AUTHORS="Red Hat"
-PROJECT="git@github.com:jbossdemocentral/rhdm7-install-demo.git"
-PRODUCT="Red Hat Decision Manager"
-TARGET=./target
-JBOSS_HOME=$TARGET/jboss-eap-7.1
-SERVER_DIR=$JBOSS_HOME/standalone/deployments
-SERVER_CONF=$JBOSS_HOME/standalone/configuration/
-SERVER_BIN=$JBOSS_HOME/bin
-SRC_DIR=./installs
-SUPPORT_DIR=./support
-DM_VERSION=7.1.0
-DM_DECISION_CENTRAL=rhdm-$DM_VERSION-decision-central-eap7-deployable.zip
-DM_KIE_SERVER=rhdm-$DM_VERSION-kie-server-ee7.zip
-EAP=jboss-eap-7.1.0.zip
-#EAP_PATCH=jboss-eap-6.4.7-patch.zip
-VERSION=7.1
+. init-properties.sh
 
 # wipe screen.
 clear
