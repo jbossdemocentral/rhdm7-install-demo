@@ -35,9 +35,12 @@
         <extension module="org.wildfly.iiop-openjdk"/>
     </extensions>
     <system-properties>
+        <property name="org.jbpm.server.ext.disabled" value="true"/>
+        <property name="org.jbpm.ui.server.ext.disabled" value="true"/>
         <property name="org.kie.example" value="false"/>
-        <property name="org.jbpm.designer.perspective" value="full"/>
+        <property name="org.jbpm.designer.perspective" value="ruleflow"/>
         <property name="designerdataobjects" value="false"/>
+        <property name="org.kie.workbench.profile" value="FORCE_PLANNER_AND_RULES"/>
         <property name="org.uberfire.nio.git.dir" value="${jboss.home.dir}/bin"/>
         <property name="org.kie.server.repo" value="${jboss.server.data.dir}"/>
         <property name="org.uberfire.metadata.index.dir" value="${jboss.home.dir}/bin"/>
@@ -48,9 +51,7 @@
         <property name="org.kie.server.controller.user" value="kieserver"/>
         <property name="org.kie.server.controller.password" value="kieserver1!"/>
         <property name="org.kie.server.location" value="http://localhost:8080/kie-server/services/rest/server"/>
-	<property name="org.jbpm.server.ext.disabled" value="true"/>
-        <property name="org.jbpm.ui.server.ext.disabled" value="true"/>
-    </system-properties>
+	  </system-properties>
     <management>
         <security-realms>
             <security-realm name="ManagementRealm">
