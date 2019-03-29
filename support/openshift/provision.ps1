@@ -6,7 +6,7 @@ param (
     [string]${project-suffix} = "",
     [string]${run-verify} = "",
     [switch]${with-imagestreams} = $false,
-    [string]${pv-capacity} = "512Mi",
+    [string]${pv-capacity} = "1Gi",
     [switch]$h = $false,
     [switch]$help = $false
 )
@@ -107,7 +107,7 @@ $KIE_SERVER_PWD="kieserver1!"
 
 #OpenShift Template Parameters
 #GitHub tag referencing the image streams and templates.
-$OPENSHIFT_DM7_TEMPLATES_TAG="7.2.0.GA"
+$OPENSHIFT_DM7_TEMPLATES_TAG="7.3.0.GA"
 
 ################################################################################
 # DEMO MATRIX                                                                  #
@@ -212,15 +212,15 @@ Function Create-Projects() {
 
 Function Import-ImageStreams-And-Templates() {
   Write-Output-Header "Importing Image Streams"
-  Call-Oc "create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/$OPENSHIFT_DM7_TEMPLATES_TAG/rhdm72-image-streams.yaml" $True "Error importing Image Streams" $True
+  Call-Oc "create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/$OPENSHIFT_DM7_TEMPLATES_TAG/rhdm73-image-streams.yaml" $True "Error importing Image Streams" $True
 
   Write-Output-Header "Patching the ImageStreams"
-  oc patch is/rhdm72-decisioncentral-openshift --type='json' -p "[{'op': 'replace', 'path': '/spec/tags/0/from/name', 'value': 'registry.access.redhat.com/rhdm-7/rhdm72-decisioncentral-openshift:1.0'}]"
-  oc patch is/rhdm72-kieserver-openshift --type='json' -p "[{'op': 'replace', 'path': '/spec/tags/0/from/name', 'value': 'registry.access.redhat.com/rhdm-7/rhdm72-kieserver-openshift:1.0'}]"
+  oc patch is/rhdm73-decisioncentral-openshift --type='json' -p "[{'op': 'replace', 'path': '/spec/tags/0/from/name', 'value': 'registry.access.redhat.com/rhdm-7/rhdm73-decisioncentral-openshift:1.0'}]"
+  oc patch is/rhdm73-kieserver-openshift --type='json' -p "[{'op': 'replace', 'path': '/spec/tags/0/from/name', 'value': 'registry.access.redhat.com/rhdm-7/rhdm73-kieserver-openshift:1.0'}]"
 
 
   Write-Output-Header "Importing Templates"
-  Call-Oc "create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/$OPENSHIFT_DM7_TEMPLATES_TAG/templates/rhdm72-authoring.yaml" $True "Error importing Template" $True
+  Call-Oc "create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/$OPENSHIFT_DM7_TEMPLATES_TAG/templates/rhdm73-authoring.yaml" $True "Error importing Template" $True
 
 }
 
@@ -239,7 +239,7 @@ Function Create-Application() {
     $IMAGE_STREAM_NAMESPACE=$($PRJ[0])
   }
 
-  $argList = "new-app --template=rhdm72-authoring"`
+  $argList = "new-app --template=rhdm73-authoring"`
       + " -p APPLICATION_NAME=""$ARG_DEMO""" `
       + " -p IMAGE_STREAM_NAMESPACE=""$IMAGE_STREAM_NAMESPACE""" `
       + " -p KIE_ADMIN_USER=""$KIE_ADMIN_USER""" `
