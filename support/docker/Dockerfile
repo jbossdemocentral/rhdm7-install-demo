@@ -34,7 +34,7 @@ RUN unzip -qo /opt/jboss/$EAP -d $HOME && \
 
 # Add support files
 RUN $JBOSS_HOME/bin/add-user.sh -a -r ApplicationRealm -u dmAdmin -p redhatdm1! -ro analyst,admin,manager,user,kie-server,kiemgmt,rest-all --silent  && \
-  $JBOSS_HOME/bin/add-user.sh -a -r ApplicationRealm -u kieserver -p kieserver1! -ro kie-server --silent
+  $JBOSS_HOME/bin/add-user.sh -a -r ApplicationRealm -u kieserver -p kieserver1! -ro kie-server,rest-all --silent
 COPY support/standalone-full.xml $JBOSS_HOME/standalone/configuration/
 COPY support/userinfo.properties $JBOSS_HOME/standalone/deployments/decision-central.war/WEB-INF/classes/
 
