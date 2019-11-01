@@ -143,7 +143,7 @@ Write-Host ""
 
 Write-Host "- enabling demo accounts setup ...`n"
 $argList1 = "-a -r ApplicationRealm -u dmAdmin -p 'redhatdm1!' -ro 'analyst,admin,manager,user,kie-server,kiemgmt,rest-all' --silent"
-$argList2 = "-a -r ApplicationRealm -u kieserver -p 'kieserver1!' -ro 'kie-server' --silent"
+$argList2 = "-a -r ApplicationRealm -u kieserver -p 'kieserver1!' -ro 'kie-server, rest-all' --silent"
 try {
 	Invoke-Expression "$JBOSS_HOME\bin\add-user.ps1 $argList1"
   Invoke-Expression "$JBOSS_HOME\bin\add-user.ps1 $argList2"
