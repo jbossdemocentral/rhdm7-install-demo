@@ -312,10 +312,12 @@ function import_secrets_and_service_account() {
   echo_header "Importing secrets and service account."
   oc process -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/$OPENSHIFT_DM7_TEMPLATES_TAG/example-app-secret-template.yaml -p SECRET_NAME=decisioncentral-app-secret | oc create -f -
   oc process -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/$OPENSHIFT_DM7_TEMPLATES_TAG/example-app-secret-template.yaml -p SECRET_NAME=kieserver-app-secret | oc create -f -
+
+  oc create -f $SCRIPT_DIR/credentials.yaml
 }
 
 function create_application() {
-  echo_header "Creating Decision Manager 7 Application config."
+  echo_header "Creating Red Hat Decision Manager 7 Authoring environment."
 
   IMAGE_STREAM_NAMESPACE="openshift"
 
@@ -326,12 +328,7 @@ function create_application() {
   oc new-app --template=rhdm$DM7_VERSION-authoring \
 			-p APPLICATION_NAME="$ARG_DEMO" \
 			-p IMAGE_STREAM_NAMESPACE="$IMAGE_STREAM_NAMESPACE" \
-			-p KIE_ADMIN_USER="$KIE_ADMIN_USER" \
-			-p KIE_ADMIN_PWD="$KIE_ADMIN_PWD" \
-			-p KIE_SERVER_CONTROLLER_USER="$KIE_SERVER_CONTROLLER_USER" \
-			-p KIE_SERVER_CONTROLLER_PWD="$KIE_SERVER_CONTROLLER_PWD" \
-			-p KIE_SERVER_USER="$KIE_SERVER_USER" \
-			-p KIE_SERVER_PWD="$KIE_SERVER_PWD" \
+			-p CREDENTIALS_SECRET="rhdm-credentials" \
       -p DECISION_CENTRAL_HTTPS_SECRET="decisioncentral-app-secret" \
       -p KIE_SERVER_HTTPS_SECRET="kieserver-app-secret" \
 			-p MAVEN_REPO_USERNAME="$KIE_ADMIN_USER" \
