@@ -277,6 +277,8 @@ Function Create-Application() {
       + " -p CREDENTIALS_SECRET=""rhdm-credentials""" `
       + " -p DECISION_CENTRAL_HTTPS_SECRET=""decisioncentral-app-secret""" `
       + " -p KIE_SERVER_HTTPS_SECRET=""kieserver-app-secret""" `
+      + " -p MAVEN_REPO_USERNAME=""$KIE_ADMIN_USER""" `
+      + " -p MAVEN_REPO_PASSWORD=""$KIE_ADMIN_PWD""" `
       + " -p DECISION_CENTRAL_VOLUME_CAPACITY=""$ARG_PV_CAPACITY"""
 
   Call-Oc $argList $True "Error creating application." $True
