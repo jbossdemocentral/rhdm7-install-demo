@@ -7,7 +7,7 @@ There are three options available to you for using this demo: local, OpenShift a
 Software
 --------
 The following software is required to run this demo:
-- [JBoss EAP 7.2 zip archive](https://developers.redhat.com/download-manager/file/jboss-eap-7.2.0.zip)
+- [JBoss EAP 7.3 zip archive](https://developers.redhat.com/download-manager/file/jboss-eap-7.3.0.zip)
 - [Red Hat Decision Manager: Decision Central 7.7.0 deployable for EAP7](https://developers.redhat.com/download-manager/file/rhdm-7.7.0-decision-central-eap7-deployable.zip)
 - [Red Hat Decision Manager: KIE-Server 7.7.0 deployable for EE8](https://developers.redhat.com/download-manager/file/rhdm-7.7.0-kie-server-ee8.zip)
 - [7-Zip](http://www.7-zip.org/download.html) (Windows only): to overcome the Windows 260 character path length limit, we need 7-Zip to unzip the Decision Manager deployable.
