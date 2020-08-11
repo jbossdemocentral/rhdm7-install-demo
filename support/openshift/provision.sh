@@ -165,9 +165,9 @@ KIE_SERVER_USER=kieserver
 KIE_SERVER_PWD=kieserver1!
 
 # Version Configuration Parameters
-OPENSHIFT_DM7_TEMPLATES_TAG=7.7.0.GA
-IMAGE_STREAM_TAG=7.7.0
-DM7_VERSION=77
+OPENSHIFT_DM7_TEMPLATES_TAG=7.8.0.GA
+IMAGE_STREAM_TAG=7.8.0
+DM7_VERSION=78
 
 
 ################################################################################
@@ -263,6 +263,10 @@ function import_imagestreams_and_templates() {
 
   echo_header "Importing Templates"
   oc create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/$OPENSHIFT_DM7_TEMPLATES_TAG/templates/rhdm$DM7_VERSION-authoring.yaml
+
+  echo_header "Patching templates to ajust the DeploymentConfig readiness/liveness probes"
+  oc patch template/rhdm78-authoring --type='json' -p '[{"op": "replace", "path": "/objects/8/spec/template/spec/containers/0/livenessProbe/initialDelaySeconds", value: 250}]'
+	oc patch template/rhdm78-authoring --type='json' -p '[{"op": "replace", "path": "/objects/8/spec/template/spec/containers/0/readinessProbe/initialDelaySeconds", value: 60}]'  
 }
 
 #Runs a spinner for the time passed to the function.
@@ -304,6 +308,7 @@ function createRhnSecretForPull() {
     --docker-password="$RHN_PASSWORD" \
     --docker-email="$RHN_EMAIL"
 
+    oc secrets link default red-hat-container-registry --for=pull
     oc secrets link builder red-hat-container-registry --for=pull
 }
 
@@ -330,6 +335,7 @@ function create_application() {
 			-p IMAGE_STREAM_NAMESPACE="$IMAGE_STREAM_NAMESPACE" \
 			-p CREDENTIALS_SECRET="rhdm-credentials" \
       -p DECISION_CENTRAL_HTTPS_SECRET="decisioncentral-app-secret" \
+      -p CREDENTIALS_SECRET="kieserver-app-secret" \
       -p KIE_SERVER_HTTPS_SECRET="kieserver-app-secret" \
 			-p MAVEN_REPO_USERNAME="$KIE_ADMIN_USER" \
 			-p MAVEN_REPO_PASSWORD="$KIE_ADMIN_PWD" \
@@ -451,7 +457,7 @@ case "$ARG_COMMAND" in
         echo "Setting up and deploying $DEMO_NAME ($ARG_DEMO)..."
 
         print_info
-        #pre_condition_check
+        pre_condition_check
         create_projects
         createRhnSecretForPull
         if [ "$ARG_WITH_IMAGESTREAMS" = true ] ; then
