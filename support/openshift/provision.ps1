@@ -107,9 +107,9 @@ $KIE_SERVER_PWD="kieserver1!"
 
 #OpenShift Template Parameters
 #GitHub tag referencing the image streams and templates.
-$OPENSHIFT_DM7_TEMPLATES_TAG="7.7.0.GA"
-$IMAGE_STREAM_TAG="7.7.0"
-$DM7_VERSION="77"
+$OPENSHIFT_DM7_TEMPLATES_TAG="7.8.0.GA"
+$IMAGE_STREAM_TAG="7.8.0"
+$DM7_VERSION="78"
 
 ################################################################################
 # DEMO MATRIX                                                                  #
@@ -232,6 +232,10 @@ Function Import-ImageStreams-And-Templates() {
   Write-Output-Header "Importing Templates"
   Call-Oc "create -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/$OPENSHIFT_DM7_TEMPLATES_TAG/templates/rhdm$DM7_VERSION-authoring.yaml" $True "Error importing Template" $True
 
+  Write-Output-Header "Patching templates to ajust the DeploymentConfig readiness/liveness probes"
+
+  Call-Oc "patch template/rhdm78-authoring --type='json' -p '[{""op"": ""replace"", ""path"": ""/objects/8/spec/template/spec/containers/0/livenessProbe/initialDelaySeconds"", value: 250}]'"
+	Call-Oc "patch template/rhdm78-authoring --type='json' -p '[{""op"": ""replace"", ""path"": ""/objects/8/spec/template/spec/containers/0/readinessProbe/initialDelaySeconds"", value: 60}]'"  
 }
 
 Function Create-Rhn-Secret-For-Pull() {
@@ -256,6 +260,7 @@ Function Create-Rhn-Secret-For-Pull() {
   }
 
   oc create secret docker-registry red-hat-container-registry --docker-server=registry.redhat.io --docker-username=$RHN_USERNAME --docker-password=$RHN_PASSWORD --docker-email=$RHN_EMAIL
+  oc secrets link default red-hat-container-registry --for=pull
   oc secrets link builder red-hat-container-registry --for=pull
 }
 
@@ -281,6 +286,7 @@ Function Create-Application() {
       + " -p IMAGE_STREAM_NAMESPACE=""$IMAGE_STREAM_NAMESPACE""" `
       + " -p CREDENTIALS_SECRET=""rhdm-credentials""" `
       + " -p DECISION_CENTRAL_HTTPS_SECRET=""decisioncentral-app-secret""" `
+      + " -p CREDENTIALS_SECRET=""kieserver-app-secret""" `
       + " -p KIE_SERVER_HTTPS_SECRET=""kieserver-app-secret""" `
       + " -p MAVEN_REPO_USERNAME=""$KIE_ADMIN_USER""" `
       + " -p MAVEN_REPO_PASSWORD=""$KIE_ADMIN_PWD""" `
