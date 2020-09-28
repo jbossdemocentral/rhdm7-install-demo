@@ -21,7 +21,7 @@ Kie Servier access configured (u: kieserver / p:kieserver1!)
 Enjoy installed and configured Red Hat Decision Manager.
 
 
-Installng on OpenShift Container Platform (CodeReady Containers)
+Installing on OpenShift Container Platform (CodeReady Containers)
 ----------------------------------------------------------------
 Install this demo on your local machine using an OpenShift Container Platform development cluster can be 
 done using CodeReady Continers. It's fully automated and delivers a fully functioning container-native 
@@ -30,7 +30,7 @@ development experience:
 [CodeReady Containers Red Hat Decision Manager Easy Install Demo](https://gitlab.com/redhatdemocentral/rhcs-rhdm-install-demo)
 
 
-Intalling on any OpenShift Container Platform (generic)
+Installing on any OpenShift Container Platform (generic)
 -------------------------------------------------------
 This demo can be installed on your own version of OpenShift Container Platform. Options and guidance can 
 be found in the [openshift support directory README](support/openshift/README.md)
