@@ -57,6 +57,6 @@ See the tagged releases for the following versions of the product:
 - v1.1 - Red Hat Decision Manager 7.1.0.GA
 - v1.0 - Red Hat Decision Manager 7.0.0.GA
 
-![Red Hat Decision Manager Install Video](./docs/demo-images/install-video.png)
+[![Red Hat Decision Manager Install Video](./docs/demo-images/install-video.png)](https://youtu.be/7Vpf9i1yJXU)
 
 ![Red Hat Decision Manager 7](./docs/demo-images/rhdm7.png)
