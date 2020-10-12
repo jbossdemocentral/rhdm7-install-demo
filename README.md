@@ -40,6 +40,8 @@ Supporting Articles
 -------------------
 - [Video - Red Hat Decision Manager Install Demo](https://youtu.be/7Vpf9i1yJXU)
 
+- [Video - CodeReady Containers Red Hat Decision Manager Install](https://youtu.be/tn3LjSE7c6I) 
+
 - [CodeReady Containers - Getting Started with OpenShift 4.5 and Decision Management Tooling](https://dzone.com/articles/codeready-containers-getting-started-with-openshif)
 
 - [Getting Started with Red Hat Decision Manager 7](https://developers.redhat.com/blog/2018/03/19/red-hat-decision-manager-7/)
