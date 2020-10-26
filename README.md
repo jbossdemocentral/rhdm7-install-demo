@@ -18,7 +18,7 @@ Follow install output instructions and log in to http://localhost:8080/decision-
 
 Kie Servier access configured (u: kieserver / p:kieserver1!)
 
-Enjoy installed and configured Red Hat Decision Manager.
+Enjoy installed and configured Red Hat Decision Manager. If you need more help, see the [install video](https://youtu.be/7Vpf9i1yJXU).
 
 
 Installing on OpenShift Container Platform (CodeReady Containers)
@@ -38,6 +38,12 @@ be found in the [openshift support directory README](support/openshift/README.md
 
 Supporting Articles
 -------------------
+- [Video - Red Hat Decision Manager Install Demo](https://youtu.be/7Vpf9i1yJXU)
+
+- [Video - CodeReady Containers Red Hat Decision Manager Install](https://youtu.be/tn3LjSE7c6I) 
+
+- [CodeReady Containers - Getting Started with OpenShift 4.5 and Decision Management Tooling](https://dzone.com/articles/codeready-containers-getting-started-with-openshif)
+
 - [Getting Started with Red Hat Decision Manager 7](https://developers.redhat.com/blog/2018/03/19/red-hat-decision-manager-7/)
 
 
@@ -52,5 +58,7 @@ See the tagged releases for the following versions of the product:
 - v1.2 - Red Hat Decision Manager 7.2.0.GA
 - v1.1 - Red Hat Decision Manager 7.1.0.GA
 - v1.0 - Red Hat Decision Manager 7.0.0.GA
+
+[![Red Hat Decision Manager Install Video](./docs/demo-images/install-video.png)](https://youtu.be/7Vpf9i1yJXU)
 
 ![Red Hat Decision Manager 7](./docs/demo-images/rhdm7.png)
