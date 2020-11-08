@@ -51,6 +51,7 @@ Released versions
 -----------------
 See the tagged releases for the following versions of the product:
 
+- v1.7 - Red Hat Decision Manager 7.9.0 GA
 - v1.6 - Red Hat Decision Manager 7.8.0 GA
 - v1.5 - Red Hat Decision Manager 7.7.0 GA
 - v1.4 - Red Hat Decision Manager 7.5.0.GA
