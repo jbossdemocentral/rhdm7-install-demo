@@ -13,7 +13,7 @@ Function Write-Host-Header($echo) {
 }
 
 $PRJ_DEMO="rhdm7-install"
-$PRJ_DEMO_NAME=((./support/openshift/provision.ps1 info $PRJ_DEMO 2>&1 | Select-String -Pattern "Project name") -split "\s+")[2]
+$PRJ_DEMO_NAME=((provision.ps1 info $PRJ_DEMO 2>&1 | Select-String -Pattern "Project name") -split "\s+")[2]
 
 # Check if the project exists
 #oc get project $PRJ_DEMO_NAME > $null 2>&1
@@ -22,7 +22,7 @@ $PRJ_EXISTS=$?
 
 if ($PRJ_EXISTS) {
   Write-Output "$PRJ_DEMO_NAME already exists. Deleting project."
-  ./support/openshift/provision.ps1 -command delete -demo $PRJ_DEMO
+  provision.ps1 -command delete -demo $PRJ_DEMO
 
   # Wait until the project has been removed.
   Write-Output "Waiting for OpenShift to clean deleted project."
@@ -30,5 +30,5 @@ if ($PRJ_EXISTS) {
 }
 
 Write-Output "Provisioning Red Hat Decision Manager 7 Install Demo."
-./support/openshift/provision.ps1 -command setup -demo $PRJ_DEMO -with-imagestreams
+provision.ps1 -command setup -demo $PRJ_DEMO -with-imagestreams
 Write-Output "Setup completed."

@@ -157,6 +157,8 @@ PRJ=("rhdm7-install-$PRJ_SUFFIX" "RHDM7 Install Demo" "Red Hat Decision Manager 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # KIE Parameters
+CREDENTIALS_USER=dmAdmin
+CREDENTIALS_PWD=redhatdm1!
 KIE_ADMIN_USER=dmAdmin
 KIE_ADMIN_PWD=redhatdm1!
 KIE_SERVER_CONTROLLER_USER=kieserver
@@ -165,9 +167,9 @@ KIE_SERVER_USER=kieserver
 KIE_SERVER_PWD=kieserver1!
 
 # Version Configuration Parameters
-OPENSHIFT_DM7_TEMPLATES_TAG=7.8.0.GA
-IMAGE_STREAM_TAG=7.8.0
-DM7_VERSION=78
+OPENSHIFT_DM7_TEMPLATES_TAG=7.9.0.GA
+IMAGE_STREAM_TAG=7.9.0
+DM7_VERSION=79
 
 
 ################################################################################
@@ -304,7 +306,7 @@ function createRhnSecretForPull() {
     --docker-password="$RHN_PASSWORD" \
     --docker-email="$RHN_EMAIL"
 
-    oc secrets link builder red-hat-container-registry --for=pull
+    oc secrets link builder red-hat-container-registry #--for=createRhnSecretForPull
 }
 
 
@@ -312,6 +314,8 @@ function import_secrets_and_service_account() {
   echo_header "Importing secrets and service account."
   oc process -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/$OPENSHIFT_DM7_TEMPLATES_TAG/example-app-secret-template.yaml -p SECRET_NAME=decisioncentral-app-secret | oc create -f -
   oc process -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/$OPENSHIFT_DM7_TEMPLATES_TAG/example-app-secret-template.yaml -p SECRET_NAME=kieserver-app-secret | oc create -f -
+
+  oc create secret generic rhpam-credentials --from-literal=KIE_ADMIN_USER=$CREDENTIALS_USER --from-literal=KIE_ADMIN_PWD=CREDENTIALS_PWD
 
   oc create -f $SCRIPT_DIR/credentials.yaml
 }
@@ -331,9 +335,10 @@ function create_application() {
 			-p CREDENTIALS_SECRET="rhdm-credentials" \
       -p DECISION_CENTRAL_HTTPS_SECRET="decisioncentral-app-secret" \
       -p KIE_SERVER_HTTPS_SECRET="kieserver-app-secret" \
-			-p MAVEN_REPO_USERNAME="$KIE_ADMIN_USER" \
-			-p MAVEN_REPO_PASSWORD="$KIE_ADMIN_PWD" \
-      -p DECISION_CENTRAL_VOLUME_CAPACITY="$ARG_PV_CAPACITY"
+			-p DECISION_CENTRAL_VOLUME_CAPACITY="$ARG_PV_CAPACITY"
+      # -p MAVEN_REPO_USERNAME="$KIE_ADMIN_USER" \
+			# -p MAVEN_REPO_PASSWORD="$KIE_ADMIN_PWD" \
+      
 
 
     # Disable the OpenShift Startup Strategy and revert to the old Controller Strategy

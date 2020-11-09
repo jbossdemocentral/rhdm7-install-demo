@@ -5,7 +5,7 @@ Project to automate the installation of this product without preconfiguration be
 You can install this project on an OpenShift Container Platform.
 
 
-Intalling on any OpenShift Container Platform (generic)
+Installing on any OpenShift Container Platform (generic)
 -------------------------------------------------------
 This demo can be installed on Red Hat OpenShift in various ways. We'll explain the different options provided.
 
@@ -37,11 +37,11 @@ This installation option will install the Decision Manager 7 and Decision Servic
 
 
 ### Scripted installation
-This installation option will install the Decision Manager 7 and Decision Service in OpenShift using the provided `provision.sh` (Linux/macOS) or `provision.ps1` (Windows) script, which gives the user a bit more control how to provision to OpenShift.
+This installation option will install the Decision Manager 7 and Decision Service in OpenShift using the provided `./provision.sh` (Linux/macOS) or `provision.ps1` (Windows) script, which gives the user a bit more control how to provision to OpenShift.
 
 1. [Download and unzip.](https://github.com/jbossdemocentral/rhdm7-install-demo/archive/master.zip) or [clone this repo](https://github.com/jbossdemocentral/rhdm7-install-demo.git).
 
-2. In the demo directory, go to `./support/openshift`. In that directory you will find the `provision.sh` (Linux/macOS) and `provision.ps1` (Windows) script.
+2. In the demo directory, go to `./support/openshift`. In that directory you will find the `./provision.sh` (Linux/macOS) and `provision.ps1` (Windows) script.
 
 3. Run `./provision.sh -h` (Linux/macOS) or `./provision.ps1 -h` (Windows) to inspect the installation options.
 
