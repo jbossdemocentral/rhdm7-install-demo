@@ -27,7 +27,7 @@ Install this demo on your local machine using an OpenShift Container Platform de
 done using CodeReady Continers. It's fully automated and delivers a fully functioning container-native 
 development experience:
 
-[CodeReady Containers Red Hat Decision Manager Easy Install Demo](https://gitlab.com/redhatdemocentral/rhcs-rhdm-install-demo)
+[CodeReady Containers Red Hat Decision Manager Easy Install Demo](https://gitlab.com/redhatdemocentral/crc-rhdm-install-demo)
 
 
 Installing on any OpenShift Container Platform (generic)
