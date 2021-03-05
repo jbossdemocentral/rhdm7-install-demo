@@ -1,6 +1,6 @@
 Download the product files from http://developers.redhat.com
 
- * Red Hat Enterprise Application Platform archive ([jboss-eap-7.3.0.zip](https://developers.redhat.com/content-gateway/file/jboss-eap-7.3.0.zip)) 
+ * Red Hat Enterprise Application Platform archive [jboss-eap-7.3.0.zip](https://developers.redhat.com/content-gateway/file/jboss-eap-7.3.0.zip) 
  * Decision Central deployable ([rhdm-7.10.0-decision-central-eap7-deployable.zip](https://developers.redhat.com/content-gateway/file/rhdm-7.10.0-decision-central-eap7-deployable.zip))
  * KIE Server (Decision Server) deployable for EE8 ([rhdm-7.10.0-kie-server-ee8.zip](https://developers.redhat.com/content-gateway/file/rhdm-7.10.0-kie-server-ee8.zip)) 
 
