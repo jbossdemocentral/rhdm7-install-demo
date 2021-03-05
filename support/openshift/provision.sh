@@ -167,9 +167,9 @@ KIE_SERVER_USER=kieserver
 KIE_SERVER_PWD=kieserver1!
 
 # Version Configuration Parameters
-OPENSHIFT_DM7_TEMPLATES_TAG=7.9.0.GA
-IMAGE_STREAM_TAG=7.9.0
-DM7_VERSION=79
+OPENSHIFT_DM7_TEMPLATES_TAG=7.10.0.GA
+IMAGE_STREAM_TAG=7.10.0
+DM7_VERSION=710
 
 
 ################################################################################
@@ -314,8 +314,6 @@ function import_secrets_and_service_account() {
   echo_header "Importing secrets and service account."
   oc process -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/$OPENSHIFT_DM7_TEMPLATES_TAG/example-app-secret-template.yaml -p SECRET_NAME=decisioncentral-app-secret | oc create -f -
   oc process -f https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/$OPENSHIFT_DM7_TEMPLATES_TAG/example-app-secret-template.yaml -p SECRET_NAME=kieserver-app-secret | oc create -f -
-
-  oc create secret generic rhpam-credentials --from-literal=KIE_ADMIN_USER=$CREDENTIALS_USER --from-literal=KIE_ADMIN_PWD=CREDENTIALS_PWD
 
   oc create -f $SCRIPT_DIR/credentials.yaml
 }

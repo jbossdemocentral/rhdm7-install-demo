@@ -16,7 +16,7 @@ Installing on local machine
 
 Follow install output instructions and log in to http://localhost:8080/decision-central (u:dmAdmin / p:redhatdm1!)
 
-Kie Servier access configured (u: kieserver / p:kieserver1!)
+Kie Server access configured (u: kieserver / p:kieserver1!)
 
 Enjoy installed and configured Red Hat Decision Manager. If you need more help, see the [install video](https://youtu.be/7Vpf9i1yJXU).
 
@@ -51,6 +51,7 @@ Released versions
 -----------------
 See the tagged releases for the following versions of the product:
 
+- v1.8 - Red Hat Decision Manager 7.10.0 GA
 - v1.7 - Red Hat Decision Manager 7.9.0 GA
 - v1.6 - Red Hat Decision Manager 7.8.0 GA
 - v1.5 - Red Hat Decision Manager 7.7.0 GA
