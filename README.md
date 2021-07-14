@@ -32,8 +32,7 @@ development experience:
 
 Installing on any OpenShift Container Platform (generic)
 -------------------------------------------------------
-This demo can be installed on your own version of OpenShift Container Platform. Options and guidance can 
-be found in the [openshift support directory README](support/openshift/README.md)
+This demo can be installed on your own version of OpenShift Container Platform. Options and guidance can be found in the [openshift support directory README](support/openshift/README.md)
 
 
 Supporting Articles
@@ -51,6 +50,7 @@ Released versions
 -----------------
 See the tagged releases for the following versions of the product:
 
+- v1.9 - Red Hat Decision Manager 7.11.0 GA
 - v1.8 - Red Hat Decision Manager 7.10.0 GA
 - v1.7 - Red Hat Decision Manager 7.9.0 GA
 - v1.6 - Red Hat Decision Manager 7.8.0 GA
